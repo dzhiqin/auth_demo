@@ -1,0 +1,28 @@
+<div class="" style="background-color:#b76d3e;border:2px solid black;margin:20px 0 20px;">
+  <% if question.user%>
+  <%= question.user.email.split("@")[0]%>提问：
+  <%else%>
+  游客提问：
+  <%end %>
+  <br>
+  <%=question.content%><br>
+  <%=link_to 'Edit',edit_question_path(question)%>
+  <%=link_to 'Delete',question_path(question),:method=>:delete%>
+  <br>
+
+  <%if question.answers.any? %>
+    <h4>Answers</h4>
+    <% question.answers.each do |answer|%>
+      <%= answer.user.email.split("@")[0]%>:
+      <%= answer.content%>
+      <%= link_to 'delete',question_answer_path(question,answer),method: :delete%>
+      <br>
+    <% end %>
+  <% end %>
+  <hr>
+  <%=form_for [question,question.answers.build] do |f|%>
+    <%=f.text_area :content%>
+    <%=f.submit "Add answer"%>
+
+  <% end %>
+</div>

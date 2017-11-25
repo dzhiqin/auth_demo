@@ -9,6 +9,24 @@
   </head>
 
   <body>
+
+    <% if flash.any? %>
+      <% user_facing_flashes.each do |key,value|%>
+        <div class="alert alert-dismissable alert-<%=flash_class(key)%>">
+          <%=value%>
+        </div>
+      <%end%>
+    <% end %>
+    <% if current_user %>
+      你好！<%=current_user.email%> <br>
+     <%= link_to('登出', destroy_user_session_path, :method => :delete) %>
+     |
+     <%= link_to('修改密碼', edit_registration_path(:user)) %>
+    <% else %>
+     <%= link_to('註冊', new_registration_path(:user)) %>
+      |
+      <%= link_to('登入', new_session_path(:user)) %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
