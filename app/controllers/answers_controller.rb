@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  load_and_authorize_resource
   def new
     @question=Question.find(params[:id])
   end

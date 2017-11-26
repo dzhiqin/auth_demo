@@ -1,12 +1,13 @@
 class QuestionsController < ApplicationController
+  load_and_authorize_resource
   def index
     @questions=Question.all
   end
   def new
-    @question=Question.new
+    # @question=Question.new
   end
   def create
-    @question=Question.new(question_params)
+    # @question=Question.new(question_params)
     @question.user=current_user
     if @question.save
       redirect_to questions_path
